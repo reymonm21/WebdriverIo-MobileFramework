@@ -1,6 +1,11 @@
 {
   "name": "webdriverIo_MobileFramework",
   "type": "module",
+  "scripts": {
+  "test:android": "wdio config/wdio.android.conf.ts",
+  "test:ios": "wdio config/wdio.ios.conf.ts",
+  "test": "wdio config/wdio.shared.conf.ts"
+},
   "devDependencies": {
     "@wdio/appium-service": "^9.15.0",
     "@wdio/cli": "^9.15.0",
