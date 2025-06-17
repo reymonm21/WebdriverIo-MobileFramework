@@ -7,7 +7,6 @@ export const config: WebdriverIO.Config = {
     runner: 'local',
     tsConfigPath: './tsconfig.json',
     
-    port: 4723,
     //
     // ==================
     // Specify Test Files
@@ -23,9 +22,7 @@ export const config: WebdriverIO.Config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //
-    specs: [
-        './test/specs/**/*.ts'
-    ],
+
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -52,14 +49,7 @@ export const config: WebdriverIO.Config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        // capabilities for local Appium web tests on an Android Emulator
-        platformName: 'Android',
-        browserName: 'Chrome',
-        'appium:deviceName': 'Android GoogleAPI Emulator',
-        'appium:platformVersion': '12.0',
-        'appium:automationName': 'UiAutomator2'
-    }],
+    capabilities: [],
 
     //
     // ===================
