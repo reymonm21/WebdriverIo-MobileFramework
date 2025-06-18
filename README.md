@@ -49,6 +49,9 @@ npm run test:android:bs #tests for Android using BrowserStack
 npm run test:ios:bs #tests for iOS using BrowserStack
 npm run test:mobile:bs #tests for Android + iOS using BrowserStack
 
+#### Open Allure report auto-generated 
+npm run report:open
+
 ## Environment variables (for BrowserStack)
 Create a .env file with your BrowserStack credentials:
 BROWSERSTACK_USER=your_user
