@@ -8,6 +8,7 @@
     "test:android:bs": "wdio config/wdio.android.bs.conf.ts",
     "test:ios:bs": "wdio config/wdio.ios.bs.conf.ts",
     "test:bs": "npm run test:android:bs && npm run test:ios:bs",
+    "report:generate": "allure generate allure-results --clean",
     "report:open": "allure open"
   },
   "devDependencies": {
