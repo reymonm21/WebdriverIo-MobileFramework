@@ -1,3 +1,6 @@
+import { spawn } from 'child_process';
+
+
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -121,7 +124,11 @@ export const config: WebdriverIO.Config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: false,
+        disableWebdriverScreenshotsReporting: false,
+    }]],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -224,8 +231,11 @@ export const config: WebdriverIO.Config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+     afterTest: async function({ error }: { error?: Error }) {
+        if (error) {
+            await driver.takeScreenshot();
+        }
+     },
 
 
     /**
@@ -268,8 +278,22 @@ export const config: WebdriverIO.Config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+onComplete: async (): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const generation = spawn('allure', ['generate', 'allure-results', '--clean']);
+        const error = new Error('Could not generate Allure report');
+
+        const timeout = setTimeout(
+            () => reject(error),
+             5000);
+
+        generation.on('exit', code => {
+            clearTimeout(timeout);
+            
+            code !== 0 ? reject(error) : (console.log('Allure report successfully generated'), resolve());
+        });
+    });
+}
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session

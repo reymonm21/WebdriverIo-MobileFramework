@@ -19,4 +19,6 @@ sharedConfig.capabilities = [
   },
 ];
 
+sharedConfig.services = ['appium'];
+
 export const config = sharedConfig;
