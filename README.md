@@ -13,19 +13,23 @@ This project is a mobile test automation framework using [WebdriverIO](https://w
 
 ## 📁 Project Structure
 ├── app/ #to include files .apk or .app, in the case you want to run the app locally
+
 ├── config/ # Config files
-│ ├── wdio.android.bs.conf.ts # WDIO config file for android using browserstack capabilities
-│ ├── wdio.android.conf.ts # WDIO config file for android using local capabilities
-│ ├── wdio.ios.bs.conf.ts # WDIO config file for ios using browserstack capabilities
-│ ├── wdio.ios.conf.ts # WDIO config file for ios using local capabilities
-│ ├── wdio.shared.conf.ts # WDIO shared config file 
+
 ├── test/
+
 │ ├── specs/ # Test cases
+
 │ ├── pageobjects/ # Page Object Model files
+
 │ ├── utils/ # Utility functions
+
 │ ├── data/ # Data folder
+
 ├── package.json
+
 ├── tsconfig.json
+
 └── README.md
 
 ## Setup Instructions
