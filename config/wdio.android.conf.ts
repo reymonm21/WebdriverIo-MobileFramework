@@ -5,7 +5,7 @@ import { config as sharedConfig } from "./wdio.shared.conf";
 sharedConfig.port = 4723;
 
 sharedConfig.specs = [
-    './test/specs/android/*.ts'
+    '../test/specs/android/*.ts'
 ];
 
 sharedConfig.capabilities = [

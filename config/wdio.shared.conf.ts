@@ -1,5 +1,4 @@
-import { spawn } from 'child_process';
-
+const { default: allure } = await import('allure-commandline');
 
 export const config: WebdriverIO.Config = {
     //
@@ -278,22 +277,26 @@ export const config: WebdriverIO.Config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-onComplete: async (): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        const generation = spawn('allure', ['generate', 'allure-results', '--clean']);
-        const error = new Error('Could not generate Allure report');
+    onComplete: async (): Promise<void> => {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', 'allure-results', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
 
-        const timeout = setTimeout(
-            () => reject(error),
-             5000);
+            generation.on('exit', function(exitCode: number) {
+                clearTimeout(generationTimeout)
 
-        generation.on('exit', code => {
-            clearTimeout(timeout);
-            
-            code !== 0 ? reject(error) : (console.log('Allure report successfully generated'), resolve());
-        });
-    });
-}
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+    }
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session
